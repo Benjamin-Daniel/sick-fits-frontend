@@ -41,8 +41,10 @@ class CreateItem extends Component {
     }
     uploadFile = async e => {
         console.log('Uploading File');
-        this.setState({imageloading: true})
         const files = e.target.files;
+        // handle file error
+        if (files.length === 0) return;
+        this.setState({imageloading: true})
         const data = new FormData();
         data.append('file', files[0]);
         data.append('upload_preset', 'sickfits');
