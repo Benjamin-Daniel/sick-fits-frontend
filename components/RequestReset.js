@@ -5,20 +5,16 @@ import Error from './ErrorMessage'
 import Form from './styles/Form'
 import { CURRENT_USER_QUERY } from './User';
 
-const SIGNIN_MUTATION = gql`
-    mutation SIGNIN_MUTATION($email: String!, $password: String!) {
-        signin(email: $email, password: $password) {
-            id
-            email
-            name
+const REQUEST_RESET_MUTATION = gql`
+    mutation REQUEST_RESET_MUTATION($email: String!) {
+        requestReset(email: $email) {
+            message
         }
     }
 `;
 
-class Signin extends Component {
+class RequestReset extends Component {
     state = {
-        name: "",
-        password: "",
         email: "",
     }
     saveToState = (e) => {
@@ -27,32 +23,30 @@ class Signin extends Component {
     render() {
         return (
             <Mutation
-                mutation={SIGNIN_MUTATION}
+                mutation={REQUEST_RESET_MUTATION}
                 variables={this.state}
-                refetchQueries={[{ query: CURRENT_USER_QUERY }]}
             >
-                {(signup, { error, loading }) => (
+                {(reset, { error, loading, called }) => (
                     <Form
                         method="POST"
                         onSubmit={async e => {
                             e.preventDefault();
-                            const res = await signup();
+                            const res = await reset();
                             console.log(res)
-                            this.setState({name:'', email: '', password: '' })
+                            this.setState({ email: '' })
 
                         }}>
                         <fieldset disabled={loading} aria-busy={loading}>
-                            <h2>Sign into your account</h2>
+                            <h2>Request a Password Reset.</h2>
                             <Error error={error} />
+                            {!error && !loading && called && (
+                                <p>Success! check your email for a email reset</p>
+                            )}
                             <label htmlFor="email">
                                 Email
                 <input type="text" name="email" placeholder="email" value={this.state.email} onChange={this.saveToState} />
                             </label>
-                            <label htmlFor="password">
-                                Password
-                <input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.saveToState} />
-                            </label>
-                            <button type="submit">Sign In!</button>
+                            <button type="submit">Request Reset!</button>
                         </fieldset>
                     </Form>
                 )}
@@ -60,4 +54,4 @@ class Signin extends Component {
         )
     }
 }
-export default Signin;
+export default RequestReset;
