@@ -27,12 +27,12 @@ const CREATE_ITEM_MUTATION = gql`
 
 class CreateItem extends Component {
     state = {
-        title: 'Cool shoes',
-        description: 'I love this',
-        image: 'dog.jpg',
-        largeImage: 'large-dog.jpg',
-        price: 1000,
-        imageloading: false
+        title: '',
+        description: '',
+        image: '',
+        largeImage: '',
+        price: 0,
+        // imageloading: false
     }
     handleChange = (e) => {
         const { name, type, value } = e.target;
@@ -40,11 +40,10 @@ class CreateItem extends Component {
         this.setState({ [name]: val });
     }
     uploadFile = async e => {
-        console.log('Uploading File');
         const files = e.target.files;
         // handle file error
         if (files.length === 0) return;
-        this.setState({imageloading: true})
+        // this.setState({imageloading: true})
         const data = new FormData();
         data.append('file', files[0]);
         data.append('upload_preset', 'sickfits');
@@ -55,11 +54,10 @@ class CreateItem extends Component {
         });
 
         const file = await res.json();
-        console.log(file);
         this.setState({
             image: file.secure_url,
             largeImage: file.eager[0].secure_url,
-            imageloading: false
+            // imageloading: false
         });
     }
     render() {
@@ -81,7 +79,7 @@ class CreateItem extends Component {
                         })
                     }}>
                     <Error error={error} />
-                        <fieldset disabled={loading || this.state.imageloading} aria-busy={loading}>
+                        <fieldset disabled={loading} aria-busy={loading}>
                         <label htmlFor="file">
                                 Image
                         <input

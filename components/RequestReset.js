@@ -29,6 +29,7 @@ class RequestReset extends Component {
                 {(reset, { error, loading, called }) => (
                     <Form
                         method="POST"
+                        data-test="form"
                         onSubmit={async e => {
                             e.preventDefault();
                             const res = await reset();
@@ -40,7 +41,7 @@ class RequestReset extends Component {
                             <h2>Request a Password Reset.</h2>
                             <Error error={error} />
                             {!error && !loading && called && (
-                                <p>Success! check your email for a email reset</p>
+                                <p data-test="success">Success! check your email for a email reset</p>
                             )}
                             <label htmlFor="email">
                                 Email
@@ -55,3 +56,4 @@ class RequestReset extends Component {
     }
 }
 export default RequestReset;
+export {REQUEST_RESET_MUTATION};
