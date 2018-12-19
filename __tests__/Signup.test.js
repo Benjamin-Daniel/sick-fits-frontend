@@ -14,6 +14,8 @@ function type(wrapper, name, value) {
 }
 
 const me = fakeUser();
+delete me.orders;
+
 const mocks = [
   {
     request: {

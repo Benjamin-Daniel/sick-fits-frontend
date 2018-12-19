@@ -33,7 +33,6 @@ class RequestReset extends Component {
                         onSubmit={async e => {
                             e.preventDefault();
                             const res = await reset();
-                            console.log(res)
                             this.setState({ email: '' })
 
                         }}>

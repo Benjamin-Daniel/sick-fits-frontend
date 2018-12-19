@@ -9,6 +9,7 @@ const REMOVE_FROM_CART_MUTATION = gql`
     mutation removeFromCart($id: ID!) {
         removeFromCart(id: $id) {
             id
+            __typename
         }
     }
 `;
@@ -31,7 +32,6 @@ class RemoveFromCart extends React.Component {
     // from the server after the mutation has been perfromed
     update = (cache, payload) => {
         // 1. first read the cache
-        console.log('Running remove from cart fn');
         const data = cache.readQuery({
             query: CURRENT_USER_QUERY,
         });
@@ -75,3 +75,4 @@ class RemoveFromCart extends React.Component {
 };
 
 export default RemoveFromCart;
+export {REMOVE_FROM_CART_MUTATION};
