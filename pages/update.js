@@ -1,8 +1,9 @@
 import UpdateItem from '../components/UpdateItem';
+import PleaseSignin from '../components/PleaseSignin';
 
 const Sell = ({query}) => (
-    <div>
+    <PleaseSignin>
         <UpdateItem id={query.id}/>
-    </div>
+    </PleaseSignin>
 )
 export default Sell;

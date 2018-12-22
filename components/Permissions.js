@@ -38,9 +38,7 @@ const ALL_USERS_QUERY = gql`
 
 const Permissions = (props) => (
     <Query query={ALL_USERS_QUERY} >
-        {({ data, loading, error }) =>
-
-            console.log(data) || (
+        {({ data, loading, error }) => (
                 <div>
                     <Error error={error} />
                     {data.users && <div>
@@ -83,7 +81,6 @@ class UserPermissions extends React.Component {
         const checkbox = e.target;
         // take a copy of the current permission
         let updatedPermissions = [...this.state.permissions];
-        console.log(updatedPermissions);
         // figure out if we need to remove or add this permission
         if (checkbox.checked) {
             // add it in
