@@ -22,6 +22,11 @@ const PaginationStyles = styled.div`
     color: grey;
     pointer-events: none;
   }
+  @media (max-width: 700px) {
+    font-size: 10px;
+    line-height: 1;
+    grid-template-columns: repeat(1,auto);
+  }
 `;
 
 export default PaginationStyles;

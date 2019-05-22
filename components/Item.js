@@ -14,7 +14,7 @@ export default class Item extends Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, me } = this.props;
     return (
       <ItemStyles>
         {item.image && <img src={item.image} alt={item.title} />}
@@ -30,17 +30,24 @@ export default class Item extends Component {
           {formatMoney(item.price)}
         </PriceTag>
         <p>{item.description}</p>
-        
+        {me && (
         <div className="buttonList">
+        { item.id== me.id && 
           <Link href={{
             pathname: 'update',
             query: {id: item.id}
           }}>
             <a>Edit</a>
+            
           </Link>
+        }
           <AddToCart id={item.id} />
-          <DeleteItem id={item.id}>Delete this Item</DeleteItem>
+          {item.id== me.id && 
+            <DeleteItem id={item.id}>Delete this Item</DeleteItem>
+          }
         </div>
+
+        )}
       </ItemStyles>
     )
   }
